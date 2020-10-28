@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shuffle and Sort</title>
+    <meta charset="UTF-8" />
+    <link type="text/css" rel="stylesheet" href="./style.css" />
+  </head>
+  <body onload="alert(window.onload)">
+    <div class="container">
+      <header>
+        <h1>Shuffle and Sort</h1>
+      </header>
+      <div class="btn-container">
+        <button id="shufflebtn" type="button" class="btn active">
+          Shuffle
+        </button>
+        <button id="sortbtn" type="button" class="btn">
+          Sort
+        </button>
+      </div>
+
+      <div class="container-box">
+        <div class="list-Items">
+          <ul id="inputElements">
+            <li class="ListItem1">1</li>
+            <li class="ListItem2">2</li>
+            <li class="ListItem3">3</li>
+            <li class="ListItem4">4</li>
+            <li class="ListItem5">5</li>
+            <li class="ListItem6">6</li>
+            <li class="ListItem7">7</li>
+            <li class="ListItem8">8</li>
+            <li class="ListItem9">9</li>
+          </ul>
+        </div>
+      </div>
+      <p>Shuffle and Sort by Thilak Raj T K</p>
+    </div>
+  </body>
+  <script>
+    window.onload = function() {
+      var grids = document.getElementById("inputElements");
+      document.getElementById("shufflebtn").onclick = shuffleListItem;
+      document.getElementById("sortbtn").onclick = SortListItem;
+      function shuffleElements(items) {
+        var previous = items.slice(0);
+        var temp;
+        var i = previous.length;
+        var newIndex;
+        console.log(previous);
+        for (i = previous.length; i > 0; i--) {
+          newIndex = Math.floor(i * Math.random());
+          temp = previous[newIndex];
+          previous[newIndex] = previous[i];
+          previous[i] = temp;
+        }
+        return previous;
+      }
+      function shuffleListItem() {
+        var listItem = grids.children;
+        //converting Object of DOM HTMLCollection to Array
+        listItem = Array.prototype.slice.call(listItem);
+        listItem = shuffleElements(listItem);
+        for (i = 1; i < listItem.length; i++) {
+          console.log(listItem[i]);
+          if (listItem[i] !== undefined) {
+            grids.appendChild(listItem[i]);
+          }
+        }
+      }
+      function SortListItem() {
+        var listItem = grids.children;
+        listItem = Array.prototype.slice.call(listItem);
+        console.log(listItem);
+        // listItem.forEach(element => {
+        //   console.log(element.className);
+        // });
+        listItem = listItem.sort(function(a, b) {
+          if (a.className < b.className) return -1;
+          if (a.className > b.className) return 1;
+          return 0;
+        });
+        console.log(listItem);
+        for (i = 1; i < listItem.length; i++) {
+          console.log(listItem[i]);
+          grids.appendChild(listItem[i]);
+        }
+      }
+    };
+  </script>
+</html>
